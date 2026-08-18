@@ -13,6 +13,7 @@ model Company {
   role      String?
   status    String           @default("active") // active | paused | rejected | offer
   createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
   rounds    InterviewRound[]
 }
 
@@ -24,6 +25,8 @@ model InterviewRound {
   date        DateTime
   interviewer String?
   notes       String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   feedback    Feedback[]
   skillGaps   SkillGap[]
 }
@@ -44,5 +47,6 @@ model SkillGap {
   name      String         // e.g. "system design", "prisma", "bearer token auth"
   notes     String?
   createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
 }
 
