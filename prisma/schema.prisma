@@ -7,5 +7,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Models (Company, InterviewRound, Feedback, SkillGap) come in step 2.
-// Left empty intentionally so step 1 stays focused on the API round-trip.
+model Company {
+  id        Int              @id @default(autoincrement())
+  name      String
+  role      String?
+  status    String           @default("active") // active | paused | rejected | offer
+  createdAt DateTime         @default(now())
+  rounds    InterviewRound[]
+}
+
+model InterviewRound {
+  id          Int        @id @default(autoincrement())
+  company     Company    @relation(fields: [companyId], references: [id])
+  companyId   Int
+  type        String     // e.g. "phone_screen" | "system_design" | "coding" | "behavioral"
+  date        DateTime
+  interviewer String?
+  notes       String?
+  feedback    Feedback[]
+  skillGaps   SkillGap[]
+}
+
+model Feedback {
+  id        Int            @id @default(autoincrement())
+  round     InterviewRound @relation(fields: [roundId], references: [id])
+  roundId   Int
+  source    String         // "recruiter" | "self_assessed"
+  text      String
+  createdAt DateTime       @default(now())
+}
+
+model SkillGap {
+  id        Int            @id @default(autoincrement())
+  round     InterviewRound @relation(fields: [roundId], references: [id])
+  roundId   Int
+  name      String         // e.g. "system design", "prisma", "bearer token auth"
+  notes     String?
+  createdAt DateTime       @default(now())
+}
+
