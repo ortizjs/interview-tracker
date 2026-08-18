@@ -1,0 +1,11 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Models (Company, InterviewRound, Feedback, SkillGap) come in step 2.
+// Left empty intentionally so step 1 stays focused on the API round-trip.
