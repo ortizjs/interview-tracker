@@ -4,10 +4,18 @@ import {
   handleLogInterviewRound,
   LogInterviewRoundInput,
 } from "./logInterviewRound";
+import {
+  flagSkillGapSchema,
+  handleFlagSkillGap,
+  FlagSkillGapInput,
+} from "./flagSkillGap";
 
 // Every tool schema Claude is allowed to call, aggregated for the API request.
 // Adding a new tool = add its file, then list its schema here.
-export const tools: Anthropic.Tool[] = [logInterviewRoundSchema];
+export const tools: Anthropic.Tool[] = [
+  flagSkillGapSchema,
+  logInterviewRoundSchema,
+];
 
 // Routes a tool_use block to its handler by name and normalizes the result
 // into the shape askClaude needs to build a tool_result content block.
@@ -22,6 +30,11 @@ export async function executeTool(
           result: await handleLogInterviewRound(
             input as LogInterviewRoundInput
           ),
+          isError: false,
+        };
+      case "flag_skill_gap":
+        return {
+          result: await handleFlagSkillGap(input as FlagSkillGapInput),
           isError: false,
         };
       default:
