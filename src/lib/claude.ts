@@ -14,7 +14,9 @@ const MODEL = "claude-haiku-4-5-20251001";
 const MAX_TOOL_ROUNDS = 5;
 
 export async function askClaude(message: string): Promise<string> {
-  const messages: Anthropic.MessageParam[] = [{ role: "user", content: message }];
+  const messages: Anthropic.MessageParam[] = [
+    { role: "user", content: message },
+  ];
 
   for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
     const response = await anthropic.messages.create({

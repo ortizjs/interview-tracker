@@ -52,7 +52,6 @@ export const logInterviewRoundSchema: Anthropic.Tool = {
 export async function handleLogInterviewRound(
   input: LogInterviewRoundInput
 ): Promise<string> {
-
   let company = await prisma.company.findFirst({
     where: { name: input.companyName },
   });

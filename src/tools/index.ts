@@ -19,7 +19,9 @@ export async function executeTool(
     switch (name) {
       case "log_interview_round":
         return {
-          result: await handleLogInterviewRound(input as LogInterviewRoundInput),
+          result: await handleLogInterviewRound(
+            input as LogInterviewRoundInput
+          ),
           isError: false,
         };
       default:
