@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { prisma } from "../lib/prisma";
+import { formatDateUTC } from "../helpers/dateHelpers";
 
 export interface LogInterviewRoundInput {
   companyName: string;
@@ -72,5 +73,5 @@ export async function handleLogInterviewRound(
     },
   });
 
-  return `Logged a ${input.roundType} round for ${input.companyName} on ${round.date.toDateString()}.`;
+  return `Logged a ${input.roundType} round for ${input.companyName} on ${formatDateUTC(round.date)}.`;
 }
