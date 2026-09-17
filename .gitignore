@@ -6,4 +6,5 @@ prisma/dev.db
 prisma/dev.db-journal
 
 CONTEXT.local.md
+CLAUDE.md
 
